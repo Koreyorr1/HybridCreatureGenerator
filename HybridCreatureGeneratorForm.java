@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class HybridCreatureGeneratorForm {
+	 // Declare instance variables for UI components
     private JPanel mainPanel;
     private JTextField creature1TextField;
     private JTextField creature2TextField;
@@ -21,9 +22,11 @@ public class HybridCreatureGeneratorForm {
     }
 
     private void initComponents() {
+    	// Initialize UI components and layout
         mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
+        // Initialize instance variables
         checkmarkLabel = new JLabel("");
         creature1TextField = new JTextField(20);
         creature2TextField = new JTextField(20);
@@ -34,6 +37,7 @@ public class HybridCreatureGeneratorForm {
         statusLabel = new JLabel("");
         random = new Random();
 
+        // Add components to mainPanel using GridBagConstraints
         c.gridx = 0;
         c.gridy = 0;
         mainPanel.add(new JLabel("Enter the type of the first creature:"), c);
@@ -80,24 +84,31 @@ public class HybridCreatureGeneratorForm {
         c.gridwidth = 1;
         mainPanel.add(checkmarkLabel, c);
         
+        // Set preferred size for mainPanel
         mainPanel.setPreferredSize(new Dimension(500, 300)); 
 
-
+        // Add action listener for the generateButton
         generateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	// Get input from text fields
                 String creature1 = creature1TextField.getText();
                 String creature2 = creature2TextField.getText();
+                
+                // Generate hybrid name and update label
                 String hybridName = generateHybridName(creature1, creature2);
                 hybridNameLabel.setText("Hybrid Name: " + hybridName);
 
+                // Generate random weight and update label
                 int weight = random.nextInt(2000) + 1;
                 weightLabel.setText("Weight: " + weight + " lbs");
-
+                
+                // Generate random food and update label
                 String[] foodOptions = {"celery", "grass", "fish", "meat", "fruits"};
                 String food = foodOptions[random.nextInt(foodOptions.length)];
                 foodLabel.setText("Eats: " + food);
-
+                
+                // Update status label and display green checkmark
                 statusLabel.setText("Creature generation successful!");
                 checkmarkLabel.setText("\u2714");
                 checkmarkLabel.setForeground(new Color(0, 128, 0));
@@ -105,10 +116,12 @@ public class HybridCreatureGeneratorForm {
         });
     }
 
+    // Method to create and return the main content pane
     public JPanel createContentPane() {
         return mainPanel;
     }
 
+    // Method to generate the hybrid name based on input creatures
     private String generateHybridName(String creature1, String creature2) {
         int splitIndex1 = random.nextInt(creature1.length() - 1) + 1;
         int splitIndex2 = random.nextInt(creature2.length() - 1) + 1;
